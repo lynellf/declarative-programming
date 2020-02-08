@@ -1,2 +1,2 @@
-# declaritive-programming
+# Declarative Programming
 Examples of declarative programming
