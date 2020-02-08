@@ -2,7 +2,7 @@
 * Compare an array of two strings and ensure they're equal.
 * Treat the character "-B" as a backspace.
 * Return a string of 'true' or 'false'.
-/*
+*/
 
 function interpreter(description) {
   let { steps, initialState, functions } = description;
