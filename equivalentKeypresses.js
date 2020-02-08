@@ -7,10 +7,10 @@
 function interpreter(description) {
   let { steps, initialState, functions } = description;
   let state = { ...initialState };
-  steps.forEach(newFunction());
+  steps.forEach(executeStep());
   return state;
 
-  function newFunction() {
+  function executeStep() {
     return step => {
       const func = functions[step];
       state = func(description, state);
