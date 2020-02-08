@@ -2,7 +2,7 @@
 * Requirement: 
 * Input: ["1, 3, 4, 7, 13", "1, 2, 4, 13, 15"]
 * Output: 1,4,13
-/*
+*/
 
 function isValid(query = [], falsy = [null, undefined]) {
   const invalidResults = query.filter(q => falsy.includes(q))
