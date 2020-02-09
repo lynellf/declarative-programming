@@ -15,7 +15,7 @@ Ultimately, there needs to be some sort of abstraction layer to pass our descrip
 
 const description = {
   stringArr: ["a,b,c,d", "a,b,c,d,d,-B"],
-  functions: [splitStrings, parseBackspaces],
+  functions: [splitStrings, parseBackspaces, joinStrings],
   initialState: {
     stringA: "",
     stringB: "",
