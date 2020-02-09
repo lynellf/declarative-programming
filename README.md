@@ -14,6 +14,8 @@ Ultimately, there needs to be some sort of abstraction layer to pass our descrip
 ```js
 
 const description = {
+  stringA: 'a,b,c,d',
+  stringB: 'a,b,c,d,d, -B',
   functions: [splitStrings, parseBackspaces, compareStrings],
   initialState: {}
 };
@@ -29,5 +31,5 @@ function interpreter(description) {
   }
 }
 
-const appOutput = interpreter(description);
+const areStringEqual = interpreter(description);
 ```
