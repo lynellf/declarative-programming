@@ -14,25 +14,30 @@ Ultimately, there needs to be some sort of abstraction layer to pass our descrip
 ```js
 
 const description = {
-  stringArr: ['a,b,c,d', 'a,b,c,d,d,-B'],
-  functions: [splitStrings, parseBackspaces, compareStrings],
+  stringArr: ["a,b,c,d", "a,b,c,d,d,-B"],
+  functions: [splitStrings, parseBackspaces],
   initialState: {
-    stringA: '',
-    stringB: '',
-    isEqual: false
-  }
+    stringA: "",
+    stringB: "",
+  },
+  objectives: [nonEmptyStrings, stringsAreEqual]
 };
 
 function interpreter(description) {
-  let { initialState, functions } = description;
+  let { initialState, functions, objectives } = description;
   let state = { ...initialState };
   functions.forEach(func => callFunc(func));
-  return state;
+  const assertions = objectives.map(obj => assert(state, obj));
+  return [ state, assertions ];
 
   function callFunc(func) {
     state = func(description, state);
   }
+
+  function assert(state, obj) {
+    return obj(state);
+  }
 }
 
-const { isEqual } = interpreter(description);
+const [output, [notEmpty, isEqual]] = interpreter(description);
 ```
