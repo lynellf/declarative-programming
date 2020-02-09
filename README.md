@@ -14,30 +14,20 @@ Ultimately, there needs to be some sort of abstraction layer to pass our descrip
 ```js
 
 const description = {
-    steps: [
-      'splitStrings',
-      'parseBackspaces',
-      'compareStrings'
-    ],
-    functions: {
-      splitStrings,
-      parseBackspaces,
-      compareStrings
-    },
-    initialState: {}
-  }
+  functions: [splitStrings, parseBackspaces, compareStrings],
+  initialState: {}
+};
 
 function interpreter(description) {
-  let { steps, initialState, functions } = description;
+  let { initialState, functions } = description;
   let state = { ...initialState };
-  steps.forEach(step => executeStep(step));
+  functions.forEach(func => callFunc(func));
   return state;
 
-  function executeStep(step) {
-    const func = functions[step];
+  function callFunc(func) {
     state = func(description, state);
   }
 }
 
-const appOutput = interpreter(description)
+const appOutput = interpreter(description);
 ```
