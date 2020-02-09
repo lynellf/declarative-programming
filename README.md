@@ -41,3 +41,69 @@ function interpreter(description) {
 
 const [output, [notEmpty, isEqual]] = interpreter(description);
 ```
+
+### Object-Oriented Interpreter
+```typescript
+type TDescription<V, S> = {
+  variables: V[];
+  functions: Function[];
+  initialState: S;
+  objectives: Function[];
+};
+
+export default class Interpreter<V, S> {
+  variables: V[] = [];
+  functions: Function[] = [];
+  state: S;
+  objectives: Function[] = [];
+
+  constructor(description: TDescription<V, S>) {
+    const { variables, functions, initialState, objectives } = description;
+    this.variables = variables;
+    this.functions = functions;
+    this.state = initialState;
+    this.objectives = objectives;
+  }
+
+  private callFunc = (func: Function) => {
+    const state = this.state
+    const variables = this.variables;
+    this.state = func(variables, state);
+  };
+
+  private assert = (state: S, objective: Function) => {
+    return objective(state);
+  };
+
+  interpret = () => {
+    const { callFunc, assert } = this;
+    const functions = this.functions;
+    const objectives = this.objectives;
+    functions.forEach(func => callFunc(func));
+    const state = this.state;
+    const assertions = objectives.map(obj => assert(state, obj));
+
+    return [state, assertions] as const;
+  };
+}
+```
+
+```typescript
+const description = {
+  variables: ["hello world"],
+  functions: [print],
+  initialState: {
+    message: ""
+  },
+  objectives: [nonEmptyMessage]
+};
+
+const app = new Interpreter(description);
+const [output, [hasMessage]] = app.interpret();
+
+if (hasMessage) {
+  console.log({ message: output.message });
+} else {
+  console.error("Message is empty!");
+}
+```
