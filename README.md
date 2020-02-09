@@ -98,8 +98,8 @@ const description = {
   objectives: [nonEmptyMessage]
 };
 
-const app = new Interpreter(description);
-const [output, [hasMessage]] = app.interpret();
+const messenger = new Interpreter(description);
+const [output, [hasMessage]] = messenger.interpret();
 
 if (hasMessage) {
   console.log({ message: output.message });
